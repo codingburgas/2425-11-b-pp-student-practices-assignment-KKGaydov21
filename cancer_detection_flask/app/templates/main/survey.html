@@ -1,22 +1,30 @@
 {% extends 'base.html' %}
 {% block title %}Survey - Cancer Detection{% endblock %}
+
 {% block content %}
-<h2>Survey Form</h2>
-<form method="POST" action="{{ url_for('main.survey') }}">
-    {{ form.hidden_tag() }}
-    {% for field_name in form.feature_fields() %}
-        <div class="form-group">
-            {{ getattr(form, field_name).label }}<br>
-            {{ getattr(form, field_name)(class="form-control") }}
-            {% if getattr(form, field_name).errors %}
-                <ul class="errors">
-                {% for error in getattr(form, field_name).errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-                </ul>
-            {% endif %}
+<div class="container mt-4">
+    <h2 class="mb-4">Health Survey Form</h2>
+    <form method="POST" action="{{ url_for('main.survey') }}">
+        {{ form.hidden_tag() }}
+
+        {% for field_name in form.feature_fields() %}
+            {% set field = form[field_name] %}
+            <div class="form-group mb-3">
+                {{ field.label(class="form-label") }}
+                {{ field(class="form-control") }}
+                {% if field.errors %}
+                    <div class="text-danger mt-1">
+                        {% for error in field.errors %}
+                            <small>{{ error }}</small><br>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <div class="text-end">
+            {{ form.submit(class="btn btn-primary") }}
         </div>
-    {% endfor %}
-    {{ form.submit(class="btn btn-primary") }}
-</form>
+    </form>
+</div>
 {% endblock %}
