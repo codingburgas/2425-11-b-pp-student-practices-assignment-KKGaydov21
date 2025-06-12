@@ -1,47 +1,42 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background: #f8f9fa;
-    color: #333;
+  background-color: #121212;
+  color: #e0e0e0;
 }
 
-header h1 a {
-    text-decoration: none;
-    color: #007bff;
+.hero-section {
+  background: linear-gradient(135deg, #1e1e2f, #2c2c3c);
+  border-radius: 1rem;
+  padding: 3rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
-nav a {
-    margin-right: 10px;
-    color: #007bff;
-    text-decoration: none;
+.card {
+  background-color: #1f1f2e;
+  color: #dcdcdc;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-nav a:hover {
-    text-decoration: underline;
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(100, 100, 255, 0.2);
 }
 
-.form-group {
-    margin-bottom: 15px;
+.btn-accent {
+  background-color: #6c63ff;
+  color: white;
+  border: none;
 }
 
-.errors {
-    color: red;
-    list-style-type: none;
-    padding-left: 0;
+.btn-accent:hover {
+  background-color: #574fd6;
 }
 
-.flash {
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 4px;
+.btn-accent {
+  background-color: #6c63ff;
+  color: white;
+  border: none;
 }
 
-.flash.error {
-    background-color: #f8d7da;
-    color: #721c24;
-}
-
-.flash.success {
-    background-color: #d4edda;
-    color: #155724;
+.btn-accent:hover {
+  background-color: #574fd6;
 }

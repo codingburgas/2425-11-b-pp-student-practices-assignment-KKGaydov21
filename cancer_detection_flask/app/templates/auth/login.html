@@ -1,25 +1,33 @@
 {% extends 'base.html' %}
-{% block title %}Login{% endblock %}
+{% block title %}Log In - Cancer Detection{% endblock %}
+
 {% block content %}
-<h2>Login</h2>
-<form method="POST" action="{{ url_for('auth.login') }}">
-    {{ form.hidden_tag() }}
-    <p>
-        {{ form.email.label }}<br>
-        {{ form.email(class="form-control") }}
-        {% for error in form.email.errors %}
-            <span class="errors">{{ error }}</span>
-        {% endfor %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+<div class="container mt-5">
+  <div class="card mx-auto p-4 shadow" style="max-width: 400px;">
+    <h3 class="text-center text-light mb-4">Log In</h3>
+    <form method="POST" action="{{ url_for('auth.login') }}">
+      {{ form.hidden_tag() }}
+      <div class="mb-3">
+        {{ form.email.label(class="form-label text-light") }}
+        {{ form.email(class="form-control bg-dark text-light border-secondary") }}
+      </div>
+      <div class="mb-3">
+        {{ form.password.label(class="form-label text-light") }}
+        {{ form.password(class="form-control bg-dark text-light border-secondary") }}
+      </div>
+      <div class="form-check mb-3">
+        {{ form.remember(class="form-check-input") }}
+        {{ form.remember.label(class="form-check-label text-light") }}
+      </div>
+      <div class="d-grid">
+        {{ form.submit(class="btn btn-accent") }}
+      </div>
+    </form>
+    <p class="text-center mt-3 text-muted">Don't have an account?
+      <a href="{{ url_for('auth.register') }}" class="text-accent">Register here</a>
     </p>
-    <p>
-        {{ form.password.label }}<br>
-        {{ form.password(class="form-control") }}
-        {% for error in form.password.errors %}
-            <span class="errors">{{ error }}</span>
-        {% endfor %}
-    </p>
-    <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-    <p>{{ form.submit(class="btn btn-primary") }}</p>
-</form>
-<p>Don't have an account? <a href="{{ url_for('auth.register') }}">Register here</a>.</p>
+  </div>
+</div>
 {% endblock %}

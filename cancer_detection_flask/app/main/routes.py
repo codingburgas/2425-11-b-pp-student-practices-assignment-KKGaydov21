@@ -1,8 +1,8 @@
-
 from ..ai.algorithm import predict
 from flask_login import login_required, current_user
 from .forms import SurveyForm
 from flask import Blueprint, render_template
+
 
 bp = Blueprint('main', __name__)
 

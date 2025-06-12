@@ -7,12 +7,16 @@
     <list default="true" id="2f649994-71ae-46af-bc31-7a0d20b98eb1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cancer_detection_flask/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/cancer_detection_flask/app/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cancer_detection_flask/app/ai/algorithm.py" beforeDir="false" afterPath="$PROJECT_DIR$/cancer_detection_flask/app/ai/algorithm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cancer_detection_flask/app/auth/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/cancer_detection_flask/app/auth/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cancer_detection_flask/app/auth/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/cancer_detection_flask/app/auth/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cancer_detection_flask/app/main/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/cancer_detection_flask/app/main/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cancer_detection_flask/app/main/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/cancer_detection_flask/app/main/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cancer_detection_flask/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/cancer_detection_flask/app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cancer_detection_flask/app/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/cancer_detection_flask/app/static/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cancer_detection_flask/app/templates/auth/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/cancer_detection_flask/app/templates/auth/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cancer_detection_flask/app/templates/auth/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/cancer_detection_flask/app/templates/auth/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cancer_detection_flask/app/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/cancer_detection_flask/app/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cancer_detection_flask/app/templates/main/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/cancer_detection_flask/app/templates/main/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cancer_detection_flask/app/templates/main/survey.html" beforeDir="false" afterPath="$PROJECT_DIR$/cancer_detection_flask/app/templates/main/survey.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cancer_detection_flask/instance/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/cancer_detection_flask/instance/app.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +92,7 @@
       <updated>1749107782910</updated>
       <workItem from="1749107784573" duration="4414000" />
       <workItem from="1749534994081" duration="723000" />
-      <workItem from="1749535737417" duration="10450000" />
+      <workItem from="1749535737417" duration="17824000" />
     </task>
     <servers />
   </component>

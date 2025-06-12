@@ -18,8 +18,8 @@ def create_app():
     migrate.init_app(app, db)
 
     # Import blueprints locally inside the function to avoid circular imports
-    from app.main.routes import bp as main_bp
-    from app.auth.routes import bp as auth_bp
+    from .main.routes import bp as main_bp
+    from .auth.routes import auth as auth_bp
 
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp, url_prefix='/auth')
