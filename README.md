@@ -1,2 +1,121 @@
-# 2425-11-b-pp-student-practices-assignment-KKGaydov21
-2425-11-b-pp-student-practices-assignment-KKGaydov21 created by GitHub Classroom
+# Cancer Risk Assessment Platform
+
+An AI-powered medical diagnostic platform for cancer risk assessment using logistic regression with a modern web interface.
+
+## Project Structure
+
+```
+cancer-assessment/
+├── main.py                # Flask web application
+├── templates/
+│   └── index.html         # Main web interface
+├── data/
+│   ├── database.py        # PostgreSQL database models and operations
+│   ├── utils.py           # Data preprocessing utilities
+│   └── Cancer_Data.csv    # Training dataset
+├── models/
+│   ├── logistic_regression.py  # Custom logistic regression implementation
+│   ├── trained_model.pkl      # Saved trained model (auto-generated)
+│   ├── scaler.pkl             # Saved data scaler (auto-generated)
+│   └── visualizations.py     # Visualization functions
+├── attached_assets/
+│   └── Cancer_Data_*.csv  # Original dataset files
+├── pyproject.toml         # Dependencies
+└── README.md
+```
+
+## Features
+
+- **Interactive Risk Assessment**: Complete cancer risk evaluation through tumor measurement surveys
+- **AI-Powered Analysis**: Advanced logistic regression model trained on medical data
+- **Real-time Results**: Instant risk probability calculations with interactive gauge charts
+- **Patient History Tracking**: Comprehensive dashboard showing assessment trends and history
+- **Medical Analytics**: Platform-wide statistics and risk distribution analysis
+- **Responsive Design**: Modern web interface with animations and professional medical styling
+- **Database Integration**: PostgreSQL backend for secure data storage and retrieval
+
+## Installation
+
+1. Install dependencies:
+   ```bash
+   uv add flask flask-cors pandas numpy matplotlib seaborn plotly scikit-learn psycopg2-binary sqlalchemy
+   ```
+
+2. Set up PostgreSQL database and configure DATABASE_URL environment variable
+
+3. Run the application:
+   ```bash
+   python main.py
+   ```
+
+## Usage
+
+Access the web application at `http://localhost:5000` and navigate through:
+
+1. **New Assessment**: Complete tumor measurement survey for risk evaluation
+2. **My History**: View personal assessment history with trend analysis
+3. **Analytics**: Platform-wide statistics and risk distribution data
+
+## Assessment Process
+
+1. **Input Measurements**: Provide 30 tumor characteristics across three categories:
+   - Mean measurements (radius, texture, perimeter, area, etc.)
+   - Standard error measurements
+   - Worst (largest) measurements
+
+2. **AI Analysis**: The system processes measurements through trained logistic regression model
+
+3. **Risk Evaluation**: Receive probability-based risk assessment with:
+   - Interactive gauge chart visualization
+   - Risk level classification (Very Low, Low, Moderate, High)
+   - Medical recommendations
+   - Detailed result explanation
+
+## Input Requirements
+
+The survey requires 30 tumor characteristics organized in three categories:
+
+### Mean Values (10 features)
+- Radius (6-30), Texture (9-40), Perimeter (40-190), Area (140-2500)
+- Smoothness (0.05-0.16), Compactness (0.02-0.35), Concavity (0-0.43)
+- Concave Points (0-0.2), Symmetry (0.1-0.3), Fractal Dimension (0.05-0.1)
+
+### Standard Error Values (10 features)
+- Standard errors for each of the above measurements
+
+### Worst Values (10 features)
+- Worst-case measurements for each characteristic
+
+## Technologies Used
+
+- **Backend**: Flask, Python, SQLAlchemy
+- **Frontend**: HTML5, CSS3, JavaScript, Plotly.js
+- **Database**: PostgreSQL
+- **Machine Learning**: Scikit-learn, NumPy, Pandas
+- **Visualization**: Plotly, interactive charts
+
+## Model Information
+
+- **Algorithm**: Logistic Regression (implemented from scratch)
+- **Training Data**: Wisconsin Breast Cancer Dataset (569 samples)
+- **Features**: 30 tumor characteristics
+- **Performance**: High accuracy on benign/malignant classification
+- **Validation**: Comprehensive model evaluation with medical metrics
+
+## Data Security
+
+- All assessment data is securely stored in PostgreSQL database
+- User sessions are managed with secure session handling
+- Medical data is processed with appropriate privacy considerations
+
+## Medical Disclaimer
+
+This platform is designed for educational and research purposes. All assessments should be confirmed by qualified medical professionals. The AI predictions are not a substitute for professional medical diagnosis or treatment.
+
+## Data Source
+
+The system is trained on the Wisconsin Breast Cancer dataset containing features computed from digitized images of breast mass fine needle aspirates (569 samples, 30 features).
+
+## License
+
+This project is for educational and research purposes.
