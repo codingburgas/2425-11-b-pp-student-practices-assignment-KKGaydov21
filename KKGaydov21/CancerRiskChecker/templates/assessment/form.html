@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+
+{% block title %}New Assessment - Cancer Risk Assessment{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-stethoscope me-2"></i>Cancer Risk Assessment
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <!-- Instructions -->
+                    <div class="alert alert-info mb-4">
+                        <h6><i class="fas fa-info-circle me-2"></i>Assessment Instructions</h6>
+                        <p class="mb-2">
+                            Please enter the following 6 key tumor measurements from your medical report. 
+                            These values are typically obtained from fine needle aspirate (FNA) of breast mass.
+                        </p>
+                        <p class="mb-0">
+                            <strong>Note:</strong> All measurements should be provided by a qualified medical professional.
+                        </p>
+                    </div>
+
+                    <form method="POST" action="{{ url_for('assessment.submit') }}" id="assessmentForm">
+                        {{ form.hidden_tag() }}
+                        
+                        <div class="row">
+                            <!-- Radius Mean -->
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    {{ form.radius_mean.label(class="form-label") }}
+                                    <div class="input-group">
+                                        {{ form.radius_mean(class="form-control" + (" is-invalid" if form.radius_mean.errors else "")) }}
+                                        <span class="input-group-text">mm</span>
+                                    </div>
+                                    <div class="form-text">Mean radius of tumor cells (6.0 - 30.0 mm)</div>
+                                    {% if form.radius_mean.errors %}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.radius_mean.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- Texture Mean -->
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    {{ form.texture_mean.label(class="form-label") }}
+                                    <div class="input-group">
+                                        {{ form.texture_mean(class="form-control" + (" is-invalid" if form.texture_mean.errors else "")) }}
+                                        <span class="input-group-text">units</span>
+                                    </div>
+                                    <div class="form-text">Mean texture variation (9.0 - 40.0 units)</div>
+                                    {% if form.texture_mean.errors %}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.texture_mean.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Perimeter Mean -->
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    {{ form.perimeter_mean.label(class="form-label") }}
+                                    <div class="input-group">
+                                        {{ form.perimeter_mean(class="form-control" + (" is-invalid" if form.perimeter_mean.errors else "")) }}
+                                        <span class="input-group-text">mm</span>
+                                    </div>
+                                    <div class="form-text">Mean perimeter of tumor cells (40.0 - 200.0 mm)</div>
+                                    {% if form.perimeter_mean.errors %}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.perimeter_mean.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- Area Mean -->
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    {{ form.area_mean.label(class="form-label") }}
+                                    <div class="input-group">
+                                        {{ form.area_mean(class="form-control" + (" is-invalid" if form.area_mean.errors else "")) }}
+                                        <span class="input-group-text">mm²</span>
+                                    </div>
+                                    <div class="form-text">Mean area of tumor cells (140.0 - 2500.0 mm²)</div>
+                                    {% if form.area_mean.errors %}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.area_mean.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Concave Points Mean -->
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    {{ form.concave_points_mean.label(class="form-label") }}
+                                    <div class="input-group">
+                                        {{ form.concave_points_mean(class="form-control" + (" is-invalid" if form.concave_points_mean.errors else "")) }}
+                                        <span class="input-group-text">ratio</span>
+                                    </div>
+                                    <div class="form-text">Mean concave points ratio (0.0 - 0.2)</div>
+                                    {% if form.concave_points_mean.errors %}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.concave_points_mean.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- Symmetry Mean -->
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    {{ form.symmetry_mean.label(class="form-label") }}
+                                    <div class="input-group">
+                                        {{ form.symmetry_mean(class="form-control" + (" is-invalid" if form.symmetry_mean.errors else "")) }}
+                                        <span class="input-group-text">ratio</span>
+                                    </div>
+                                    <div class="form-text">Mean symmetry ratio (0.1 - 0.3)</div>
+                                    {% if form.symmetry_mean.errors %}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.symmetry_mean.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Additional Notes -->
+                        {% if form.notes %}
+                        <div class="mb-3">
+                            {{ form.notes.label(class="form-label") }}
+                            {{ form.notes(class="form-control") }}
+                        </div>
+                        {% endif %}
+
+                        <!-- Medical Disclaimer -->
+                        <div class="alert alert-warning mb-4">
+                            <h6><i class="fas fa-exclamation-triangle me-2"></i>Medical Disclaimer</h6>
+                            <p class="mb-0">
+                                This assessment is for educational purposes only. Results should always be 
+                                interpreted by a qualified healthcare professional. Do not use this tool 
+                                as a substitute for professional medical advice, diagnosis, or treatment.
+                            </p>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            {{ form.submit(class="btn btn-primary btn-lg", id="submitBtn") }}
+                            <a href="{{ url_for('dashboard.index') }}" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('assessmentForm').addEventListener('submit', function(e) {
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+    submitBtn.disabled = true;
+});
+</script>
+{% endblock %}

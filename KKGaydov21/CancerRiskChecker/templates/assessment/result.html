@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block title %}Assessment Result - Cancer Risk Assessment{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- Results Header -->
+            <div class="card shadow mb-4">
+                <div class="card-header bg-{{ assessment.risk_color }} text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-chart-line me-2"></i>Assessment Results
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h2 class="mb-2">
+                                Risk Level: 
+                                <span class="badge bg-{{ assessment.risk_color }} fs-5">
+                                    {{ assessment.risk_level }}
+                                </span>
+                            </h2>
+                            <p class="lead mb-3">
+                                Probability: {{ assessment.probability_percentage }}%
+                            </p>
+                            <p class="text-muted">
+                                Assessment completed on {{ assessment.timestamp.strftime('%B %d, %Y at %I:%M %p') }}
+                            </p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="risk-icon">
+                                {% if assessment.risk_level == 'Very Low' %}
+                                    <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
+                                {% elif assessment.risk_level == 'Low' %}
+                                    <i class="fas fa-info-circle text-primary" style="font-size: 4rem;"></i>
+                                {% elif assessment.risk_level == 'Moderate' %}
+                                    <i class="fas fa-exclamation-triangle text-warning" style="font-size: 4rem;"></i>
+                                {% else %}
+                                    <i class="fas fa-exclamation-circle text-danger" style="font-size: 4rem;"></i>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Risk Gauge Chart -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <h5><i class="fas fa-tachometer-alt me-2"></i>Risk Probability Gauge</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="gaugeChart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Summary -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <h5><i class="fas fa-list me-2"></i>Input Summary</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <td><strong>Radius (Mean):</strong></td>
+                                            <td>{{ assessment.radius_mean }} mm</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Texture (Mean):</strong></td>
+                                            <td>{{ assessment.texture_mean }} units</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Perimeter (Mean):</strong></td>
+                                            <td>{{ assessment.perimeter_mean }} mm</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-md-6">
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <td><strong>Area (Mean):</strong></td>
+                                            <td>{{ assessment.area_mean }} mm²</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Concave Points (Mean):</strong></td>
+                                            <td>{{ assessment.concave_points_mean }} ratio</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Symmetry (Mean):</strong></td>
+                                            <td>{{ assessment.symmetry_mean }} ratio</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recommendations -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <h5><i class="fas fa-lightbulb me-2"></i>Recommendations</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-{{ assessment.risk_color }}">
+                                <h6><i class="fas fa-{{ 
+                                    'check-circle' if assessment.risk_level == 'Very Low'
+                                    else 'info-circle' if assessment.risk_level == 'Low'
+                                    else 'exclamation-triangle' if assessment.risk_level == 'Moderate'
+                                    else 'exclamation-circle' }} me-2"></i>{{ assessment.risk_level }} Risk</h6>
+                                <p class="mb-2">{{ recommendations.message }}</p>
+                                <p class="mb-0">{{ recommendations.advice }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Medical Disclaimer -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="alert alert-warning">
+                        <h6><i class="fas fa-exclamation-triangle me-2"></i>Important Medical Disclaimer</h6>
+                        <p class="mb-0">
+                            This assessment is based on AI analysis and is for educational purposes only. 
+                            Results should always be interpreted by qualified medical professionals. 
+                            This tool is not a substitute for professional medical diagnosis, treatment, or advice. 
+                            Always consult with healthcare providers for medical decisions.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex gap-3 justify-content-center">
+                        <a href="{{ url_for('assessment.index') }}" class="btn btn-primary">
+                            <i class="fas fa-plus me-2"></i>New Assessment
+                        </a>
+                        <a href="{{ url_for('dashboard.index') }}" class="btn btn-outline-secondary">
+                            <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                        </a>
+                        <a href="{{ url_for('assessment.history') }}" class="btn btn-outline-info">
+                            <i class="fas fa-history me-2"></i>View History
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Render the gauge chart
+var gaugeData = {{ gauge_chart|safe }};
+Plotly.newPlot('gaugeChart', gaugeData.data, gaugeData.layout, {responsive: true});
+</script>
+{% endblock %}

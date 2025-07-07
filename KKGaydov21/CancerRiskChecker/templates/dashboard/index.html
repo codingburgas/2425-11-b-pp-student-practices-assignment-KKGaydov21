@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Cancer Risk Assessment{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <!-- Welcome Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h2 class="mb-0">
+                        <i class="fas fa-tachometer-alt me-2"></i>
+                        Welcome back, {{ current_user.full_name or current_user.username }}!
+                    </h2>
+                    <p class="mb-0">Track your health assessments and monitor your risk trends.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3 mb-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-clipboard-list fa-3x text-primary mb-3"></i>
+                    <h3 class="card-title">{{ stats.total_assessments }}</h3>
+                    <p class="card-text text-muted">Total Assessments</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3 mb-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-calendar-alt fa-3x text-success mb-3"></i>
+                    <h3 class="card-title">{{ stats.recent_count }}</h3>
+                    <p class="card-text text-muted">Last 30 Days</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3 mb-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-chart-pie fa-3x text-info mb-3"></i>
+                    <h3 class="card-title">{{ stats.avg_risk }}%</h3>
+                    <p class="card-text text-muted">Average Risk</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3 mb-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-user-clock fa-3x text-warning mb-3"></i>
+                    <h3 class="card-title">
+                        {{ current_user.created_at.strftime('%Y') }}
+                    </h3>
+                    <p class="card-text text-muted">Member Since</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Risk Distribution -->
+    {% if stats.risk_distribution %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-chart-bar me-2"></i>Risk Level Distribution</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% for risk_level, count in stats.risk_distribution.items() %}
+                        <div class="col-md-3 mb-3">
+                            <div class="card border-0 bg-light">
+                                <div class="card-body text-center">
+                                    <h4 class="mb-1">{{ count }}</h4>
+                                    <p class="text-muted mb-0">{{ risk_level }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Trend Chart -->
+    {% if trend_chart %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-chart-line me-2"></i>Assessment Trend</h5>
+                </div>
+                <div class="card-body">
+                    <div id="trendChart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Recent Assessments -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5><i class="fas fa-history me-2"></i>Recent Assessments</h5>
+                    <a href="{{ url_for('assessment.index') }}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-plus me-1"></i>New Assessment
+                    </a>
+                </div>
+                <div class="card-body">
+                    {% if recent_assessments %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Risk Level</th>
+                                    <th>Probability</th>
+                                    <th>Classification</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for assessment in recent_assessments %}
+                                <tr>
+                                    <td>{{ assessment.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+                                    <td>
+                                        <span class="badge bg-{{ assessment.risk_color }}">
+                                            {{ assessment.risk_level }}
+                                        </span>
+                                    </td>
+                                    <td>{{ assessment.probability_percentage }}%</td>
+                                    <td>{{ assessment.prediction_text }}</td>
+                                    <td>
+                                        <a href="{{ url_for('assessment.result', assessment_id=assessment.id) }}" 
+                                           class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-eye me-1"></i>View
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-clipboard-list fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No assessments yet</h5>
+                        <p class="text-muted">Start your first cancer risk assessment to track your health.</p>
+                        <a href="{{ url_for('assessment.index') }}" class="btn btn-primary">
+                            <i class="fas fa-plus me-2"></i>Start Assessment
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% if trend_chart %}
+<script>
+// Render the trend chart
+var trendData = {{ trend_chart|safe }};
+Plotly.newPlot('trendChart', trendData.data, trendData.layout, {responsive: true});
+</script>
+{% endif %}
+{% endblock %}
