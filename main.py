@@ -1,3 +1,4 @@
+import uuid
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 from flask_cors import CORS
 import sys

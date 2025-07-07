@@ -1,4 +1,20 @@
 import os
+from dotenv import load_dotenv
+
+print("Loading .env file...")
+load_dotenv()
+
+print("Environment variables loaded:")
+for k, v in os.environ.items():
+    if "DATABASE" in k:
+        print(f"{k}={v}")
+
+DATABASE_URL = os.getenv('DATABASE_URL')
+print("DATABASE_URL value:", DATABASE_URL)
+
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL environment variable not found")
+
 import sqlalchemy as sa
 from sqlalchemy import create_engine, Column, Integer, Float, String, DateTime, Boolean, Text
 from sqlalchemy.ext.declarative import declarative_base
