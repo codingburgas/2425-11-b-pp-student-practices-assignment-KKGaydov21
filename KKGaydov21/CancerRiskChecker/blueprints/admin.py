@@ -30,7 +30,7 @@ def index():
     from ..models.user import User
     from ..models.assessment import Assessment
     from ..app import db
-    
+    flash("hi")
     # Get platform statistics
     total_users = User.query.count()
     active_users = User.query.filter_by(is_active=True).count()
@@ -48,14 +48,8 @@ def index():
         db.func.count(Assessment.id).label('count')
     ).group_by(Assessment.risk_level).all()
     
-    # Top users by assessment count
-    top_users = db.session.query(
-        User.username,
-        User.full_name,
-        User.total_assessments,
-        User.created_at
-    ).order_by(User.total_assessments.desc()).limit(10).all()
-    
+
+
     stats = {
         'total_users': total_users,
         'active_users': active_users,
@@ -64,7 +58,6 @@ def index():
         'new_users_30d': new_users_30d,
         'assessments_30d': assessments_30d,
         'risk_distribution': dict(risk_stats),
-        'top_users': top_users
     }
     
     return render_template('admin/dashboard.html', stats=stats)
@@ -131,10 +124,11 @@ def user_detail(user_id):
                          risk_distribution=dict(risk_distribution))
 
 
-@admin_bp.route('/users/<int:user_id>/delete', methods=['POST'])
+@admin_bp.route('/users/<int:user_id>/delete', methods=['POST', 'GET'])
 @login_required
 @admin_required
 def delete_user(user_id):
+    flash("Function called")
     """Delete a user account."""
     from ..models.user import User
     from ..app import db

@@ -50,15 +50,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Loading states for forms
     const submitButtons = document.querySelectorAll('form button[type="submit"]');
-    submitButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            const form = this.closest('form');
-            if (form && form.checkValidity()) {
-                this.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Processing...';
-                this.disabled = true;
+submitButtons.forEach(button => {
+    const form = button.closest('form');
+    if (form) {
+        form.addEventListener('submit', function(event) {
+            if (form.checkValidity()) {
+                button.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Processing...';
+                button.disabled = true;
             }
         });
-    });
+    }
+});
+
 
     // Auto-resize textareas
     const textareas = document.querySelectorAll('textarea');
