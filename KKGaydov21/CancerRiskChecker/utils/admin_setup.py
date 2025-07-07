@@ -105,8 +105,7 @@ def list_admin_users():
         return []
 
 
-if __name__ == "__main__":
-    # Run admin setup when script is executed directly
+def exec():
     from ..app import create_app
     
     app = create_app()

